@@ -2,10 +2,12 @@ import pygame
 import fractales
 from OpenGL.GL import *
 from OpenGL.GLU import *
+
+import victoria
 from funciones.ball import Ball
 from funciones.rectangle import Rectangle
 import inicio
-import final
+import derrota
 # Dimensiones de la ventana
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
@@ -70,10 +72,10 @@ def main():
 
         # SI COLICISIOA CON EL SUELO LA PELOTA
         if ball.collide_with_floor():
-            final.show_welcome_screen()
+            derrota.show_welcome_screen()
         #SI LOS CUADRADOS SON 0
         if len(squares) == 0:
-            final.show_welcome_screen()
+            victoria.show_welcome_screen()
         # Dibujar el rectángulo
         rectangle.draw()
 

@@ -17,7 +17,7 @@ def show_welcome_screen():
     welcome = True
 
     # Cargar la imagen de fondo
-    background_image = pygame.image.load("img/over.jpg").convert()
+    background_image = pygame.image.load("img/win.jpg").convert()
     background_image = pygame.transform.scale(background_image, (window_width, window_height))
 
     while welcome:
@@ -28,9 +28,6 @@ def show_welcome_screen():
 
         # Dibujar la imagen de fondo
         window.blit(background_image, (0, 0))
-
-
-
 
         # Crear un botón de reiniciar con esquinas redondeadas
         button_width = 200
