@@ -49,9 +49,9 @@ def main():
 
         # Movimiento del rectángulo
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT]:
+        if keys[pygame.K_LEFT] and rectangle.x >0:
             rectangle.x -= 2
-        if keys[pygame.K_RIGHT]:
+        if keys[pygame.K_RIGHT] and rectangle.x < 700:
             rectangle.x += 2
 
         # Movimiento de la bola
