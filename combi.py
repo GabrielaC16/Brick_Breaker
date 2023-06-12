@@ -4,7 +4,8 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from funciones.ball import Ball
 from funciones.rectangle import Rectangle
-
+import inicio
+import final
 # Dimensiones de la ventana
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
@@ -12,13 +13,13 @@ WINDOW_HEIGHT = 600
 
 
 def main():
-
+    inicio.show_welcome_screen()
     pygame.init()
     pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.OPENGL | pygame.DOUBLEBUF)
     gluOrtho2D(0, WINDOW_WIDTH, 0, WINDOW_HEIGHT)  # Definir el sistema de coordenadas
     pygame.display.set_caption("Arkanoid")
 
-    rectangle = Rectangle(400, 0, 100, 50)
+    rectangle = Rectangle(400, 0, 100, 20)
 
 
     all_position = fractales.gen_positions()
@@ -34,7 +35,7 @@ def main():
     
 
     #squares = [Rectangle(200, 200, 50, 50), Rectangle(500, 200, 50, 50)]
-    ball = Ball(400, 300, 20)
+    ball = Ball(400, 300, 15)
     ball.speed_x = 0.6
     ball.speed_y = 0.6
 
@@ -66,6 +67,9 @@ def main():
                 squares.remove(square)
                 ball.speed_y *= -1
 
+        # SI COLICISIOA CON EL SUELO LA PELOTA
+        if ball.collide_with_floor():
+            final.show_welcome_screen()
         # Dibujar el rectángulo
         rectangle.draw()
 

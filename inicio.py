@@ -35,6 +35,7 @@ def show_welcome_screen():
         text_rect = text.get_rect(center=(window_width / 2, window_height / 2 - 50))
         window.blit(text, text_rect)
 
+        
         # Crear un botón de inicio con esquinas redondeadas
         button_width = 200
         button_height = 50
@@ -53,9 +54,9 @@ def show_welcome_screen():
         if start_button.collidepoint(mouse_pos):
             if pygame.mouse.get_pressed()[0] == 1:
                 pygame.display.quit()
-
+                break
                 # Abrir una nueva ventana
-                game_window = combi.main()
+                #game_window = combi.main()
         pygame.display.update()
 
-show_welcome_screen()
+#show_welcome_screen()

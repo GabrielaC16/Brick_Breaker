@@ -1,6 +1,7 @@
 from OpenGL.GL import *
 from math import sin,cos,sqrt
 
+
 class Ball:
     def __init__(self, x, y, radius):
         self.x = x
@@ -39,3 +40,8 @@ class Ball:
         distance = sqrt((closest_x - self.x) ** 2 + (closest_y - self.y) ** 2)
 
         return distance <= self.radius
+
+    def collide_with_floor(self):
+        if self.y <= 0:
+            return True
+            
