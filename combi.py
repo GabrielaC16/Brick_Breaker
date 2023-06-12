@@ -35,8 +35,8 @@ def main():
 
     #squares = [Rectangle(200, 200, 50, 50), Rectangle(500, 200, 50, 50)]
     ball = Ball(400, 300, 20)
-    ball.speed_x = 0.2
-    ball.speed_y = 0.2
+    ball.speed_x = 0.6
+    ball.speed_y = 0.6
 
     while True:
         for event in pygame.event.get():
@@ -49,12 +49,12 @@ def main():
         # Movimiento del rectángulo
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
-            rectangle.x -= 1
+            rectangle.x -= 2
         if keys[pygame.K_RIGHT]:
-            rectangle.x += 1
+            rectangle.x += 2
 
         # Movimiento de la bola
-        ball.move(WINDOW_WIDTH, WINDOW_HEIGHT)
+        ball.move(WINDOW_HEIGHT, WINDOW_WIDTH)
 
         # Colisiones entre la bola y el rectángulo
         if ball.collides_with_rectangle(rectangle):
