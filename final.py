@@ -3,7 +3,7 @@ import pygame
 import combi
 
 
-def show_welcome_screen(pantalla_text):
+def show_welcome_screen():
     pygame.init()
 
     window_width = 800
@@ -29,11 +29,6 @@ def show_welcome_screen(pantalla_text):
         # Dibujar la imagen de fondo
         window.blit(background_image, (0, 0))
 
-        # Dibujar el texto de bienvenida
-        font = pygame.font.Font(None, 36)
-        text = font.render(pantalla_text, True, black)
-        text_rect = text.get_rect(center=(window_width / 2, window_height / 2 - 50))
-        window.blit(text, text_rect)
 
 
 

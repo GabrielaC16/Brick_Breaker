@@ -70,10 +70,10 @@ def main():
 
         # SI COLICISIOA CON EL SUELO LA PELOTA
         if ball.collide_with_floor():
-            final.show_welcome_screen("Perdiste")
+            final.show_welcome_screen()
         #SI LOS CUADRADOS SON 0
         if len(squares) == 0:
-            final.show_welcome_screen("Ganaste")
+            final.show_welcome_screen()
         # Dibujar el rectángulo
         rectangle.draw()
 
