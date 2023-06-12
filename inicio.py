@@ -9,7 +9,7 @@ def show_welcome_screen():
     window_width = 800
     window_height = 600
     window = pygame.display.set_mode((window_width, window_height))
-    pygame.display.set_caption("Arkanoid")
+    pygame.display.set_caption("Brick Breacker")
 
     white = (255, 255, 255)
     black = (0, 0, 0)
@@ -17,7 +17,7 @@ def show_welcome_screen():
     welcome = True
 
     # Cargar la imagen de fondo
-    background_image = pygame.image.load("img/background.png").convert()
+    background_image = pygame.image.load("img/pantalla.jpg").convert()
     background_image = pygame.transform.scale(background_image, (window_width, window_height))
 
     while welcome:
@@ -29,18 +29,12 @@ def show_welcome_screen():
         # Dibujar la imagen de fondo
         window.blit(background_image, (0, 0))
 
-        # Dibujar el texto de bienvenida
-        font = pygame.font.Font(None, 36)
-        text = font.render("Bienvenidos, a \"Romper ladrillo\"", True, black)
-        text_rect = text.get_rect(center=(window_width / 2, window_height / 2 - 50))
-        window.blit(text, text_rect)
 
-        
         # Crear un botón de inicio con esquinas redondeadas
         button_width = 200
         button_height = 50
         button_radius = 10
-        start_button = pygame.Rect(window_width / 2 - button_width / 2, window_height / 2, button_width, button_height)
+        start_button = pygame.Rect(window_width / 2 - button_width / 2, window_height -230, button_width, button_height)
         pygame.draw.rect(window, black, start_button, border_radius=button_radius)
 
         # Dibujar el texto del botón de inicio

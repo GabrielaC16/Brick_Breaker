@@ -17,7 +17,7 @@ def main():
     pygame.init()
     pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.OPENGL | pygame.DOUBLEBUF)
     gluOrtho2D(0, WINDOW_WIDTH, 0, WINDOW_HEIGHT)  # Definir el sistema de coordenadas
-    pygame.display.set_caption("Arkanoid")
+    pygame.display.set_caption("Brick Breacker")
 
     rectangle = Rectangle(400, 0, 100, 20)
 
