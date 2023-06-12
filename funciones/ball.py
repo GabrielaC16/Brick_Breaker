@@ -44,4 +44,6 @@ class Ball:
     def collide_with_floor(self):
         if self.y <= 0:
             return True
-            
+
+
+#BASADO EN modelo ball de https://github.com/GabrielaC16/Brick_Breaker

@@ -59,4 +59,11 @@ def show_welcome_screen():
                 #game_window = combi.main()
         pygame.display.update()
 
-#show_welcome_screen()
+#PROMPT CHAT GPT
+'''
+Crea un programa en Python utilizando la biblioteca Pygame para crear una pantalla de bienvenida para un juego. 
+La pantalla debe tener una ventana con dimensiones de 800x600 píxeles y el título 'Arkanoid'. 
+El fondo debe ser de color blanco. Muestra el texto 'Bienvenido' en color negro en el centro de la ventana. 
+Crea un botón rectangular con la etiqueta 'Iniciar' en el centro de la ventana, de color negro. 
+El texto del botón debe ser de color blanco. Cuando se haga clic en el botón 'Iniciar', sal de la pantalla de bienvenida."
+'''

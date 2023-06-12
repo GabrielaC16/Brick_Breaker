@@ -27,15 +27,15 @@ def main():
     squares = [] 
 
 
-    for ele in all_position :
-        print(ele[0],ele[1])
+#    for ele in all_position :
+ #       print(ele[0],ele[1])
 
     for ele in all_position : 
         squares.append(Rectangle(ele[0], ele[1], 20, 20))
     
 
     #squares = [Rectangle(200, 200, 50, 50), Rectangle(500, 200, 50, 50)]
-    ball = Ball(400, 300, 15)
+    ball = Ball(400, 60, 15)
     ball.speed_x = 0.6
     ball.speed_y = 0.6
 

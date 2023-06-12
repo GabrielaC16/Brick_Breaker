@@ -27,3 +27,4 @@ class Rectangle:
         distance = sqrt((closest_x - ball.x) ** 2 + (closest_y - ball.y) ** 2)
 
         return distance <= ball.radius
+

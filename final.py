@@ -84,4 +84,4 @@ def show_welcome_screen():
                 quit()
         pygame.display.update()
 
-#show_welcome_screen()
+# BASADO EN inicio.py
