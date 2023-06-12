@@ -9,7 +9,7 @@ def show_welcome_screen(pantalla_text):
     window_width = 800
     window_height = 600
     window = pygame.display.set_mode((window_width, window_height))
-    pygame.display.set_caption("Arkanoid")
+    pygame.display.set_caption("Brick Breacker")
 
     white = (255, 255, 255)
     black = (0, 0, 0)
@@ -17,7 +17,7 @@ def show_welcome_screen(pantalla_text):
     welcome = True
 
     # Cargar la imagen de fondo
-    background_image = pygame.image.load("img/background2.png").convert()
+    background_image = pygame.image.load("img/over.jpg").convert()
     background_image = pygame.transform.scale(background_image, (window_width, window_height))
 
     while welcome:
@@ -41,19 +41,19 @@ def show_welcome_screen(pantalla_text):
         button_width = 200
         button_height = 50
         button_radius = 10
-        restart_button = pygame.Rect(window_width / 2 - button_width / 2, window_height / 2, button_width, button_height)
-        pygame.draw.rect(window, (0, 0, 0), restart_button, border_radius=button_radius)
+        restart_button = pygame.Rect((window_width - button_width )/4, window_height / 2 +200, button_width, button_height)
+        pygame.draw.rect(window, (255, 255, 255), restart_button, border_radius=button_radius)
         # Dibujar el texto del botón de reiniciar
         font = pygame.font.Font(None, 24)
-        restart_text = font.render("Reiniciar", True, (255, 255, 255))
+        restart_text = font.render("Reiniciar", True, (0, 0, 0))
         restart_text_rect = restart_text.get_rect(center=restart_button.center)
         window.blit(restart_text, restart_text_rect)
 
         # Crear un botón de salir con esquinas redondeadas
-        quit_button = pygame.Rect(window_width / 2 - button_width / 2, window_height / 2 + 80, button_width, button_height)
-        pygame.draw.rect(window, (0, 0, 0), quit_button, border_radius=button_radius)
+        quit_button = pygame.Rect(window_width  - button_width -150, window_height / 2 + 200, button_width, button_height)
+        pygame.draw.rect(window, (255, 255, 255), quit_button, border_radius=button_radius)
         # Dibujar el texto del botón de salir
-        quit_text = font.render("Salir", True, (255, 255, 255))
+        quit_text = font.render("Salir", True, (0, 0, 0))
         quit_text_rect = quit_text.get_rect(center=quit_button.center)
         window.blit(quit_text, quit_text_rect)
 
