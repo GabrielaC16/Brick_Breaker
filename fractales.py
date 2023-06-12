@@ -57,13 +57,13 @@ class LSystem():
             new_sentence += mapped
         self.sentence = new_sentence
 
-    def draw(self, screen):
+    def draw(self):
         hue = 0
         for char in self.sentence:
             if char == 'F':
                 x2 = self.x - self.length * math.cos(self.theta)
                 y2 = self.y - self.length * math.sin(self.theta)
-                pygame.draw.line(screen, (hsv2rgb(hue, 1, 1)), (self.x, self.y), (x2, y2), 2)
+                #pygame.draw.line(screen, (hsv2rgb(hue, 1, 1)), (self.x, self.y), (x2, y2), 2)
                 self.x, self.y = x2, y2
                 self.draw_postion.add((x2, y2))
 
@@ -87,20 +87,17 @@ def hsv2rgb(h, s, v):
     return tuple(round(i * 255) for i in colorsys.hsv_to_rgb(h, s, v))
 
 
-deep = 2
+deep = 1
 
 def gen_positions():
-    screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    pygame.mouse.set_visible(False)
 
     fractal = LSystem(axiom, rules, angle, start, length, ratio)
     running = True
-    screen.fill((0,0,0))
 
     for i in range(deep):
         fractal.generate()
 
-    fractal.draw(screen)
+    fractal.draw()
     v = fractal.get_positions()
     return v
  
