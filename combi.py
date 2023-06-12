@@ -1,4 +1,5 @@
 from math import sin,cos,sqrt
+import fractales
 
 import pygame
 from OpenGL.GL import *
@@ -6,8 +7,8 @@ from OpenGL.GLU import *
 from math import sqrt
 
 # Dimensiones de la ventana
-WINDOW_WIDTH = 800
-WINDOW_HEIGHT = 600
+WINDOW_WIDTH = 1600
+WINDOW_HEIGHT = 1200
 
 # Clase para el rectángulo
 class Rectangle:
@@ -82,7 +83,20 @@ def main():
     gluOrtho2D(0, WINDOW_WIDTH, 0, WINDOW_HEIGHT)  # Definir el sistema de coordenadas
 
     rectangle = Rectangle(300, 400, 100, 50)
-    squares = [Rectangle(200, 200, 50, 50), Rectangle(500, 200, 50, 50)]
+
+
+    all_position = fractales.gen_positions()
+
+    for ele in all_position:
+        print(ele[0],ele[1])
+
+    squares = [] 
+
+    for ele in all_position : 
+        squares.append(Rectangle(ele[0], ele[1], 50, 50))
+
+    #squares = [Rectangle(200, 200, 50, 50), Rectangle(500, 200, 50, 50)]
+
     ball = Ball(400, 300, 20)
     ball.speed_x = 0.2
     ball.speed_y = 0.2
