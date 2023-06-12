@@ -6,8 +6,8 @@ class Ball:
         self.x = x
         self.y = y
         self.radius = radius
-        self.speed_x = 0.2
-        self.speed_y = 0.2
+        self.speed_x = 0.5
+        self.speed_y = 0.5
 
     def move(self, WINDOW_HEIGHT,WINDOW_WIDTH):
         self.x += self.speed_x

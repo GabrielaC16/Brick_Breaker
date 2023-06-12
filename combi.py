@@ -1,4 +1,5 @@
 import pygame
+import fractales
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from funciones.ball import Ball
@@ -11,13 +12,28 @@ WINDOW_HEIGHT = 600
 
 
 def main():
+
     pygame.init()
     pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.OPENGL | pygame.DOUBLEBUF)
     gluOrtho2D(0, WINDOW_WIDTH, 0, WINDOW_HEIGHT)  # Definir el sistema de coordenadas
     pygame.display.set_caption("Arkanoid")
 
-    rectangle = Rectangle(300, 400, 100, 50)
-    squares = [Rectangle(200, 200, 50, 50), Rectangle(500, 200, 50, 50)]
+    rectangle = Rectangle(400, 0, 100, 50)
+
+
+    all_position = fractales.gen_positions()
+
+    squares = [] 
+
+
+    for ele in all_position :
+        print(ele[0],ele[1])
+
+    for ele in all_position : 
+        squares.append(Rectangle(ele[0], ele[1], 20, 20))
+    
+
+    #squares = [Rectangle(200, 200, 50, 50), Rectangle(500, 200, 50, 50)]
     ball = Ball(400, 300, 20)
     ball.speed_x = 0.2
     ball.speed_y = 0.2
