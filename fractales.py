@@ -5,10 +5,10 @@ import colorsys
 
 pygame.init()
 
-WIDTH = 1920
-HEIGHT = 1080
+WIDTH = 800
+HEIGHT = 600
 
-start = int(1100), int(750)
+start = int(100), int(600)
 length = int(50)
 ratio = float(0.8)
 
@@ -16,14 +16,12 @@ axiom = "F+F+F"
 
 num_rules = int(1)
 rules = {
-        "F" : "F+FF-F"
+        "F" : "F+F-F+F"
         }
  #   for i in range(num_rules):
  #       rule = f.readline().split(' ')
  #       rules[rule[0]] = rule[1]
 angle = 120
-
-
 
 
 class LSystem():
@@ -65,7 +63,8 @@ class LSystem():
                 y2 = self.y - self.length * math.sin(self.theta)
                 #pygame.draw.line(screen, (hsv2rgb(hue, 1, 1)), (self.x, self.y), (x2, y2), 2)
                 self.x, self.y = x2, y2
-                self.draw_postion.add((x2, y2))
+                e = 0.85
+                self.draw_postion.add((e*x2, e*y2))
 
 
             elif char == '+':
@@ -87,7 +86,7 @@ def hsv2rgb(h, s, v):
     return tuple(round(i * 255) for i in colorsys.hsv_to_rgb(h, s, v))
 
 
-deep = 1
+deep = 3
 
 def gen_positions():
 
