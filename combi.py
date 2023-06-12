@@ -1,85 +1,20 @@
-from math import sin,cos,sqrt
-
 import pygame
 from OpenGL.GL import *
 from OpenGL.GLU import *
-from math import sqrt
+from funciones.ball import Ball
+from funciones.rectangle import Rectangle
 
 # Dimensiones de la ventana
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
 
-# Clase para el rectángulo
-class Rectangle:
-    def __init__(self, x, y, width, height):
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
 
-    def draw(self):
-        glColor3f(0, 1, 0)
-        glBegin(GL_QUADS)
-        glVertex2f(self.x, self.y)  # Esquina superior izquierda
-        glVertex2f(self.x + self.width, self.y)  # Esquina superior derecha
-        glVertex2f(self.x + self.width, self.y + self.height)  # Esquina inferior derecha
-        glVertex2f(self.x, self.y + self.height)  # Esquina inferior izquierda
-        glEnd()
-
-    def collides_with_ball(self, ball):
-        # Calcula el punto más cercano del rectángulo al centro de la bola
-        closest_x = max(self.x, min(ball.x, self.x + self.width))
-        closest_y = max(self.y, min(ball.y, self.y + self.height))
-
-        # Calcula la distancia entre el punto más cercano y el centro de la bola
-        distance = sqrt((closest_x - ball.x) ** 2 + (closest_y - ball.y) ** 2)
-
-        return distance <= ball.radius
-
-# Clase para la bola
-class Ball:
-    def __init__(self, x, y, radius):
-        self.x = x
-        self.y = y
-        self.radius = radius
-        self.speed_x = 0.2
-        self.speed_y = 0.2
-
-    def move(self):
-        self.x += self.speed_x
-        self.y += self.speed_y
-
-        if self.x <= 0 or self.x >= WINDOW_WIDTH:
-            self.speed_x *= -1
-        if self.y <= 0 or self.y >= WINDOW_HEIGHT:
-            self.speed_y *= -1
-
-    def draw(self):
-        glColor3f(1, 0, 0)
-        glBegin(GL_TRIANGLE_FAN)
-        glVertex2f(self.x, self.y)  # Centro de la bola
-        num_segments = 100
-        for i in range(num_segments + 1):
-            angle = 2.0 * 3.1415926 * i / num_segments
-            x = self.x + self.radius * cos(angle)
-            y = self.y + self.radius * sin(angle)
-            glVertex2f(x, y)
-        glEnd()
-
-    def collides_with_rectangle(self, rectangle):
-        # Calcula el punto más cercano del rectángulo al centro de la bola
-        closest_x = max(rectangle.x, min(self.x, rectangle.x + rectangle.width))
-        closest_y = max(rectangle.y, min(self.y, rectangle.y + rectangle.height))
-
-        # Calcula la distancia entre el punto más cercano y el centro de la bola
-        distance = sqrt((closest_x - self.x) ** 2 + (closest_y - self.y) ** 2)
-
-        return distance <= self.radius
 
 def main():
     pygame.init()
     pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.OPENGL | pygame.DOUBLEBUF)
     gluOrtho2D(0, WINDOW_WIDTH, 0, WINDOW_HEIGHT)  # Definir el sistema de coordenadas
+    pygame.display.set_caption("Arkanoid")
 
     rectangle = Rectangle(300, 400, 100, 50)
     squares = [Rectangle(200, 200, 50, 50), Rectangle(500, 200, 50, 50)]
@@ -103,7 +38,7 @@ def main():
             rectangle.x += 1
 
         # Movimiento de la bola
-        ball.move()
+        ball.move(WINDOW_WIDTH, WINDOW_HEIGHT)
 
         # Colisiones entre la bola y el rectángulo
         if ball.collides_with_rectangle(rectangle):
