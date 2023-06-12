@@ -59,6 +59,7 @@ def main():
 
         # Colisiones entre la bola y el rectángulo
         if ball.collides_with_rectangle(rectangle):
+            print(len(squares))
             ball.speed_y *= -1
 
         # Colisiones entre la bola y los cuadrados
@@ -69,7 +70,10 @@ def main():
 
         # SI COLICISIOA CON EL SUELO LA PELOTA
         if ball.collide_with_floor():
-            final.show_welcome_screen()
+            final.show_welcome_screen("Perdiste")
+        #SI LOS CUADRADOS SON 0
+        if len(squares) == 0:
+            final.show_welcome_screen("Ganaste")
         # Dibujar el rectángulo
         rectangle.draw()
 
