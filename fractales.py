@@ -12,12 +12,17 @@ start = int(100), int(600)
 length = int(50)
 ratio = float(0.8)
 
+
 axiom = "F+F+F"
 
 num_rules = int(1)
 rules = {
         "F" : "F+F-F+F"
         }
+
+
+
+
  #   for i in range(num_rules):
  #       rule = f.readline().split(' ')
  #       rules[rule[0]] = rule[1]
@@ -55,6 +60,7 @@ class LSystem():
             new_sentence += mapped
         self.sentence = new_sentence
 
+    
     def draw(self):
         hue = 0
         for char in self.sentence:
@@ -77,7 +83,7 @@ class LSystem():
                 position = self.positions.pop()
                 self.x, self.y, self.theta = position['x'], position['y'], position['theta']
             hue += 0.00005
-
+    
     def get_positions(self):
         return self.draw_postion
 
