@@ -13,8 +13,7 @@ from OpenGL.GLU import *
 
 # Dimensiones de la ventana del juego 
 WINDOW_WIDTH = 800
-WINDOW_HEIGHT = 600
-
+WINDOW_HEIGHT = 700
 
 def main():
     # mostrar la pantalla de bienvenida
@@ -68,9 +67,9 @@ def main():
     # Vida de las pelotas
     lifes = []
     color_life = (148, 0, 211) 
-    lifes.append(Ball(750, 550, 15, color_life))
-    lifes.append(Ball(700, 550, 15, color_life))
-    lifes.append(Ball(650, 550, 15, color_life))
+    lifes.append(Ball(WINDOW_WIDTH -50 , WINDOW_HEIGHT -50, 15, color_life))
+    lifes.append(Ball(WINDOW_WIDTH -100, WINDOW_HEIGHT -50, 15, color_life))
+    lifes.append(Ball(WINDOW_WIDTH - 150, WINDOW_HEIGHT -50, 15, color_life))
 
     game_started = False
 
@@ -104,7 +103,7 @@ def main():
                 rectangle.x -= 2
                 ball.x -= 2
 
-            if keys[pygame.K_RIGHT] and rectangle.x < 700:
+            if keys[pygame.K_RIGHT] and rectangle.x < WINDOW_WIDTH - 100:
                 rectangle.x += 2
                 ball.x += 2
 
@@ -114,7 +113,7 @@ def main():
             if keys[pygame.K_LEFT] and rectangle.x >0:
                 rectangle.x -= 2
 
-            if keys[pygame.K_RIGHT] and rectangle.x < 700:
+            if keys[pygame.K_RIGHT] and rectangle.x < WINDOW_WIDTH - 100:
                 rectangle.x += 2
 
             # Colisiones entre la bola y el rectángulo
