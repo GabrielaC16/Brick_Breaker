@@ -1,16 +1,18 @@
 import pygame
 import fractales
-import inicio
-import derrota
-import victoria
-from funciones.ball import Ball
-from funciones.rectangle import Rectangle
 from OpenGL.GL import *
 from OpenGL.GLU import *
 
+import victoria
+from funciones.ball import Ball
+from funciones.rectangle import Rectangle
+import inicio
+import derrota
 # Dimensiones de la ventana
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
+
+
 
 def main():
     inicio.show_welcome_screen()
@@ -18,8 +20,9 @@ def main():
     pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.OPENGL | pygame.DOUBLEBUF)
     gluOrtho2D(0, WINDOW_WIDTH, 0, WINDOW_HEIGHT)  # Definir el sistema de coordenadas
     pygame.display.set_caption("Brick Breacker")
+    color_rectangle = (1, 1, 1)
+    rectangle = Rectangle(400, 0, 100, 20,color_rectangle)
 
-    rectangle = Rectangle(400, 0, 100, 20)
 
     all_position = fractales.gen_positions()
 
@@ -28,17 +31,24 @@ def main():
 
 #    for ele in all_position :
  #       print(ele[0],ele[1])
+    all_position2 = list(all_position)
+    mitad = len(all_position2) // 2
+    
+    
+    color =  (0, 1, 0)
+    for ele in all_position2[:mitad] : 
+        squares_nivel1.append(Rectangle(ele[0], ele[1], 20, 20,color))
 
-    for ele in all_position : 
-        squares.append(Rectangle(ele[0], ele[1], 20, 20))
+    color2 = (1, 1, 0)
+    for ele in all_position2[mitad:] : 
+        squares_nivel2.append(Rectangle(ele[0], ele[1], 20, 20,color2))
     
 
     #squares = [Rectangle(200, 200, 50, 50), Rectangle(500, 200, 50, 50)]
-
     ball = Ball(400, 60, 15)
     ball.speed_x = 0.6
     ball.speed_y = 0.6
-
+    golpes_cuadrados_nivel2 = [2] * mitad
     while True:
         i = -1
         for event in pygame.event.get():
@@ -51,16 +61,16 @@ def main():
         # Movimiento del rectángulo
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT] and rectangle.x >0:
-            rectangle.x -= 1
+            rectangle.x -= 2
         if keys[pygame.K_RIGHT] and rectangle.x < 700:
-            rectangle.x += 1
+            rectangle.x += 2
 
         # Movimiento de la bola
         ball.move(WINDOW_HEIGHT, WINDOW_WIDTH)
 
         # Colisiones entre la bola y el rectángulo
         if ball.collides_with_rectangle(rectangle):
-            print(len(squares))
+            #print(len(squares))
             ball.speed_y *= -1
 
         # Colisiones entre la bola y los cuadrados ROMPIBLES
@@ -92,13 +102,12 @@ def main():
         
 
 
-        # SI COLICISIONA CON EL SUELO LA PELOTA
+        # SI COLICISIOA CON EL SUELO LA PELOTA
         if ball.collide_with_floor():
             derrota.show_welcome_screen()
         #SI LOS CUADRADOS SON 0
         if len(squares_nivel1) == 0:
             victoria.show_welcome_screen()
-
         # Dibujar el rectángulo
         rectangle.draw()
 
@@ -114,3 +123,4 @@ def main():
 if __name__ == '__main__':
     main()
 
+#xd prueba
