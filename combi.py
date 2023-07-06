@@ -15,13 +15,13 @@ import numpy as np
 from OpenGL.GL import *
 from OpenGL.GLU import *
 
-# Configurar la cámara
+# Configurar la cámara JOEL
 cap = cv2.VideoCapture(0)
 cap.set(3, 640)
 cap.set(4, 480)
 
 
-# Inicializar el reconocimiento de la mano
+# Inicializar el reconocimiento de la mano JOEL
 mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
 hands = mp_hands.Hands()
@@ -33,7 +33,7 @@ WINDOW_HEIGHT = 700
 
 
 def main():
-    # Características de la plataforma
+    # Características de la plataforma JOEL
     platform_width = 100
     platform_height = 20
     platform_x = WINDOW_WIDTH // 2 - platform_width // 2
@@ -98,17 +98,17 @@ def main():
     # Ciclo principal del juego
     while True:
 
-        ret, frame = cap.read()
-        # Voltear horizontalmente la imagen de la cámara
+        ret, frame = cap.read() #JOEL
+        # Voltear horizontalmente la imagen de la cámara JOEL
         frame = cv2.flip(frame, 1)
 
-        # Convertir la imagen a RGB para MediaPipe
+        # Convertir la imagen a RGB para MediaPipe JOEL
         image_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
-        # Realizar la detección de la mano
+        # Realizar la detección de la mano JOEL
         results = hands.process(image_rgb)
 
-        # Comprobar si se detectaron manos
+        # Comprobar si se detectaron manos JOEL
         if results.multi_hand_landmarks:
             for hand_landmarks in results.multi_hand_landmarks:
                 # Obtener la posición del dedo índice
@@ -124,9 +124,9 @@ def main():
                     platform_x = WINDOW_WIDTH - platform_width
                 # Dibujar los puntos clave y la conexión entre ellos en la imagen
                 mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
-        print(platform_x)
-        cv2.imshow('Camera', frame)
-        if cv2.waitKey(1) == ord('q'):
+        print(platform_x) # HITEEK
+        cv2.imshow('Camera', frame) # JOEL
+        if cv2.waitKey(1) == ord('q'): #JOEL
             break
         i = -1
         for event in pygame.event.get():
@@ -169,12 +169,12 @@ def main():
             if keys[pygame.K_RIGHT] and rectangle.x < WINDOW_WIDTH - 100:
                 rectangle.x += 2
             '''
-            rectangle.x = platform_x
+            rectangle.x = platform_x # HITEEK
             # Colisiones entre la bola y el rectángulo
             if ball.collides_with_rectangle(rectangle):
                 #print(len(squares))
                 ball.speed_y *= -1
-                ball.speed_x *= -1
+                #ball.speed_x *= -1
 
             # Colisiones entre la bola y los ladrillos nivel 1
             for square in squares_nivel1:
