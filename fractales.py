@@ -20,9 +20,6 @@ rules = {
         "F" : "F+F-F+F"
         }
 
-
-
-
  #   for i in range(num_rules):
  #       rule = f.readline().split(' ')
  #       rules[rule[0]] = rule[1]

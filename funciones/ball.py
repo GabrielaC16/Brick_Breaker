@@ -9,6 +9,7 @@ class Ball:
         self.radius = radius
         self.speed_x = 0.2
         self.speed_y = 0.2
+        self.vidas = 3
 
     def move(self, WINDOW_HEIGHT,WINDOW_WIDTH):
         self.x += self.speed_x
@@ -42,7 +43,7 @@ class Ball:
         return distance <= self.radius
 
     def collide_with_floor(self):
-        if self.y <= 0:
+        if self.y <= 0 :
             return True
 
 

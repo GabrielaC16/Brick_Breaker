@@ -60,7 +60,7 @@ def main():
     #squares = [Rectangle(200, 200, 50, 50), Rectangle(500, 200, 50, 50)]
 
     # Características de la pelota
-    ball = Ball(400, 60, 15)
+    ball = Ball(400, 37, 15)
     ball.speed_x = 0
     ball.speed_y = 0
 
@@ -137,7 +137,17 @@ def main():
 
             # Si la pelota colisiona con el suelo
             if ball.collide_with_floor():
-                derrota.show_welcome_screen()
+                ball.vidas -= 1
+                ball.x = 400
+                ball.y = 37
+                ball.speed_x = 0
+                ball.speed_y = 0
+                rectangle.x = 350
+                # print( ball.vidas)
+                if ball.vidas == 0 :
+                    derrota.show_welcome_screen()
+                else:
+                    game_started = False
 
             # Si los ladrillos son cero 
             if len(squares_nivel1 + squares_nivel2 ) == 0:
