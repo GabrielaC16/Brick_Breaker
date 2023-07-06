@@ -8,20 +8,18 @@ from funciones.rectangle import Rectangle
 import cv2
 import mediapipe as mp
 import numpy as np
-
-
+import os
 
 # Para la visualización en 2D
 from OpenGL.GL import *
 from OpenGL.GLU import *
 
-# Configurar la cámara JOEL
+# Configurar la cámara 
 cap = cv2.VideoCapture(0)
 cap.set(3, 640)
 cap.set(4, 480)
 
-
-# Inicializar el reconocimiento de la mano JOEL
+# Inicializar el reconocimiento de la mano 
 mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
 hands = mp_hands.Hands()
@@ -30,23 +28,23 @@ hands = mp_hands.Hands()
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 700
 
-
-
 def main():
-    # Características de la plataforma JOEL
-    platform_width = 100
-    platform_height = 20
-    platform_x = WINDOW_WIDTH // 2 - platform_width // 2
-    platform_y = WINDOW_HEIGHT - 50
+
     # mostrar la pantalla de bienvenida
     inicio.show_welcome_screen()
     pygame.init()
+    # Establecer la posición de la ventana de Pygame
+    os.environ['SDL_VIDEO_WINDOW_POS'] = '700,100'  
     pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), pygame.OPENGL | pygame.DOUBLEBUF)
     gluOrtho2D(0, WINDOW_WIDTH, 0, WINDOW_HEIGHT)  # Definir el sistema de coordenadas
     # establecer el titulo de la ventana 
     pygame.display.set_caption("Brick Breacker")
 
     # caracteristicas del rectángulo
+    platform_width = 100
+    platform_height = 20
+    platform_x = WINDOW_WIDTH // 2 - platform_width // 2
+    platform_y = WINDOW_HEIGHT - 50
     color_rectangle = (1, 1, 1)     # color blanco
     rectangle = Rectangle(350, 0, platform_width, platform_height, color_rectangle)
 
@@ -98,17 +96,17 @@ def main():
     # Ciclo principal del juego
     while True:
 
-        ret, frame = cap.read() #JOEL
-        # Voltear horizontalmente la imagen de la cámara JOEL
+        ret, frame = cap.read() 
+        # Voltear horizontalmente la imagen de la cámara 
         frame = cv2.flip(frame, 1)
 
-        # Convertir la imagen a RGB para MediaPipe JOEL
+        # Convertir la imagen a RGB para MediaPipe 
         image_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
-        # Realizar la detección de la mano JOEL
+        # Realizar la detección de la mano 
         results = hands.process(image_rgb)
 
-        # Comprobar si se detectaron manos JOEL
+        # Comprobar si se detectaron manos 
         if results.multi_hand_landmarks:
             for hand_landmarks in results.multi_hand_landmarks:
                 # Obtener la posición del dedo índice
@@ -120,13 +118,17 @@ def main():
                 # Limitar los límites de movimiento de la plataforma
                 if platform_x < 0:
                     platform_x = 0
+
                 elif platform_x > WINDOW_WIDTH - platform_width:
                     platform_x = WINDOW_WIDTH - platform_width
+
                 # Dibujar los puntos clave y la conexión entre ellos en la imagen
                 mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
-        #print(platform_x) # HITEEK
-        cv2.imshow('Camera', frame) # JOEL
-        if cv2.waitKey(1) == ord('q'): #JOEL
+
+        #print(platform_x) 
+        # Mostrar la ventana de la cámara
+        cv2.imshow('Camera', frame) 
+        if cv2.waitKey(1) == ord('q'): 
             break
         i = -1
         for event in pygame.event.get():
@@ -152,6 +154,8 @@ def main():
 
         if not game_started:
 
+            # movimiento con teclado
+
             if keys[pygame.K_LEFT] and rectangle.x >0:
                 rectangle.x -= 2
                 ball.x -= 2
@@ -169,7 +173,7 @@ def main():
             if keys[pygame.K_RIGHT] and rectangle.x < WINDOW_WIDTH - 100:
                 rectangle.x += 2
             '''
-            rectangle.x = platform_x # HITEEK
+            rectangle.x = platform_x 
             # Colisiones entre la bola y el rectángulo
             if ball.collides_with_rectangle(rectangle):
                 punto_golpeo = ball.x-rectangle.x
