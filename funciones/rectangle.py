@@ -1,16 +1,16 @@
-
 from OpenGL.GL import *
 from math import sqrt
 
 class Rectangle:
-    def __init__(self, x, y, width, height):
+    def __init__(self, x, y, width, height, color):
         self.x = x
         self.y = y
         self.width = width
         self.height = height
+        self.color = color  # Color inicial del rectángulo
 
     def draw(self):
-        glColor3f(0, 1, 0)
+        glColor3f(*self.color)  # Utiliza el color definido para dibujar el rectángulo
         glBegin(GL_QUADS)
         glVertex2f(self.x, self.y)  # Esquina superior izquierda
         glVertex2f(self.x + self.width, self.y)  # Esquina superior derecha
@@ -28,3 +28,5 @@ class Rectangle:
 
         return distance <= ball.radius
 
+    def change_color(self, new_color):
+        self.color = new_color
