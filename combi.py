@@ -124,7 +124,7 @@ def main():
                     platform_x = WINDOW_WIDTH - platform_width
                 # Dibujar los puntos clave y la conexión entre ellos en la imagen
                 mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
-        print(platform_x) # HITEEK
+        #print(platform_x) # HITEEK
         cv2.imshow('Camera', frame) # JOEL
         if cv2.waitKey(1) == ord('q'): #JOEL
             break
@@ -172,8 +172,21 @@ def main():
             rectangle.x = platform_x # HITEEK
             # Colisiones entre la bola y el rectángulo
             if ball.collides_with_rectangle(rectangle):
-                #print(len(squares))
-                ball.speed_y *= -1
+                punto_golpeo = ball.x-rectangle.x
+                #ball.speed_y *= -1
+                if punto_golpeo > 40 and punto_golpeo < 60:
+                    ball.speed_y *= -1
+                elif punto_golpeo < 40 and ball.speed_x > 0:
+                    ball.speed_y *= -1
+                    ball.speed_x *= -1
+                elif punto_golpeo < 40 and ball.speed_x < 0:
+                    ball.speed_y *= -1
+                elif punto_golpeo > 60 and ball.speed_x > 0:
+                    ball.speed_y *= -1
+                elif punto_golpeo > 60 and ball.speed_x < 0:
+                    ball.speed_y *= -1
+                    ball.speed_x *= -1
+                #print(ball.x)
                 #ball.speed_x *= -1
 
             # Colisiones entre la bola y los ladrillos nivel 1
