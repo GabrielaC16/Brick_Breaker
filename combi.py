@@ -36,8 +36,8 @@ def main():
     squares_nivel1 = [] # se rompen de 1 golpe
     squares_nivel2 = [] # se rompen de 2 golpe
 
-#    for ele in all_position :
- #       print(ele[0],ele[1])
+ #  for ele in all_position :
+ #     print(ele[0],ele[1])
 
 
     all_position2 = list(all_position)
@@ -60,9 +60,17 @@ def main():
     #squares = [Rectangle(200, 200, 50, 50), Rectangle(500, 200, 50, 50)]
 
     # Características de la pelota
-    ball = Ball(400, 37, 15)
+    color_ball = (1, 0, 0) 
+    ball = Ball(400, 37, 15, color_ball)
     ball.speed_x = 0
     ball.speed_y = 0
+
+    # Vida de las pelotas
+    lifes = []
+    color_life = (148, 0, 211) 
+    lifes.append(Ball(750, 550, 15, color_life))
+    lifes.append(Ball(700, 550, 15, color_life))
+    lifes.append(Ball(650, 550, 15, color_life))
 
     game_started = False
 
@@ -137,17 +145,18 @@ def main():
 
             # Si la pelota colisiona con el suelo
             if ball.collide_with_floor():
-                ball.vidas -= 1
+                ball.life -= 1
                 ball.x = 400
                 ball.y = 37
                 ball.speed_x = 0
                 ball.speed_y = 0
                 rectangle.x = 350
-                # print( ball.vidas)
-                if ball.vidas == 0 :
+                # print( ball.life)
+                if ball.life == 0 :
                     derrota.show_welcome_screen()
                 else:
                     game_started = False
+                    lifes.pop()
 
             # Si los ladrillos son cero 
             if len(squares_nivel1 + squares_nivel2 ) == 0:
@@ -162,6 +171,10 @@ def main():
 
         # Dibujar la bola
         ball.draw()
+
+        # Dibujar las vidas
+        for life in lifes:
+            life.draw()
 
         pygame.display.flip()
 

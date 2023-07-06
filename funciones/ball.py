@@ -3,13 +3,14 @@ from math import sin,cos,sqrt
 
 
 class Ball:
-    def __init__(self, x, y, radius):
+    def __init__(self, x, y, radius, color):
         self.x = x
         self.y = y
         self.radius = radius
         self.speed_x = 0.2
         self.speed_y = 0.2
-        self.vidas = 3
+        self.color = color
+        self.life = 3
 
     def move(self, WINDOW_HEIGHT,WINDOW_WIDTH):
         self.x += self.speed_x
@@ -21,7 +22,7 @@ class Ball:
             self.speed_y *= -1
 
     def draw(self):
-        glColor3f(1, 0, 0)
+        glColor3f(*self.color)
         glBegin(GL_TRIANGLE_FAN)
         glVertex2f(self.x, self.y)  # Centro de la bola
         num_segments = 100
