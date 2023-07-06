@@ -5,17 +5,39 @@ import derrota
 import victoria
 from funciones.ball import Ball
 from funciones.rectangle import Rectangle
+import cv2
+import mediapipe as mp
+import numpy as np
+
+
 
 # Para la visualización en 2D
 from OpenGL.GL import *
 from OpenGL.GLU import *
 
+# Configurar la cámara
+cap = cv2.VideoCapture(0)
+cap.set(3, 640)
+cap.set(4, 480)
+
+
+# Inicializar el reconocimiento de la mano
+mp_drawing = mp.solutions.drawing_utils
+mp_hands = mp.solutions.hands
+hands = mp_hands.Hands()
 
 # Dimensiones de la ventana del juego 
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 700
 
+
+
 def main():
+    # Características de la plataforma
+    platform_width = 100
+    platform_height = 20
+    platform_x = WINDOW_WIDTH // 2 - platform_width // 2
+    platform_y = WINDOW_HEIGHT - 50
     # mostrar la pantalla de bienvenida
     inicio.show_welcome_screen()
     pygame.init()
@@ -26,7 +48,7 @@ def main():
 
     # caracteristicas del rectángulo
     color_rectangle = (1, 1, 1)     # color blanco
-    rectangle = Rectangle(350, 0, 100, 20, color_rectangle)
+    rectangle = Rectangle(350, 0, platform_width, platform_height, color_rectangle)
 
     # lista de posiciones para los ladrillos
     all_position = fractales.gen_positions()
@@ -75,13 +97,44 @@ def main():
 
     # Ciclo principal del juego
     while True:
+
+        ret, frame = cap.read()
+        # Voltear horizontalmente la imagen de la cámara
+        frame = cv2.flip(frame, 1)
+
+        # Convertir la imagen a RGB para MediaPipe
+        image_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
+        # Realizar la detección de la mano
+        results = hands.process(image_rgb)
+
+        # Comprobar si se detectaron manos
+        if results.multi_hand_landmarks:
+            for hand_landmarks in results.multi_hand_landmarks:
+                # Obtener la posición del dedo índice
+                index_finger = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP]
+                x, y = int(index_finger.x * frame.shape[1]), int(index_finger.y * frame.shape[0])
+
+                # Mover la plataforma de acuerdo al movimiento de la mano
+                platform_x = x - platform_width // 2
+                # Limitar los límites de movimiento de la plataforma
+                if platform_x < 0:
+                    platform_x = 0
+                elif platform_x > WINDOW_WIDTH - platform_width:
+                    platform_x = WINDOW_WIDTH - platform_width
+                # Dibujar los puntos clave y la conexión entre ellos en la imagen
+                mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
+        print(platform_x)
+        cv2.imshow('Camera', frame)
+        if cv2.waitKey(1) == ord('q'):
+            break
         i = -1
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE and not game_started:
                     game_started = True
-                    ball.speed_x = 0.6
-                    ball.speed_y = 0.6
+                    ball.speed_x = 20
+                    ball.speed_y = 20
 
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -109,17 +162,19 @@ def main():
 
 
         if game_started:
-
+            '''
             if keys[pygame.K_LEFT] and rectangle.x >0:
                 rectangle.x -= 2
 
             if keys[pygame.K_RIGHT] and rectangle.x < WINDOW_WIDTH - 100:
                 rectangle.x += 2
-
+            '''
+            rectangle.x = platform_x
             # Colisiones entre la bola y el rectángulo
             if ball.collides_with_rectangle(rectangle):
                 #print(len(squares))
                 ball.speed_y *= -1
+                ball.speed_x *= -1
 
             # Colisiones entre la bola y los ladrillos nivel 1
             for square in squares_nivel1:
@@ -176,7 +231,8 @@ def main():
             life.draw()
 
         pygame.display.flip()
-
+#cap.release()
+#cv2.destroyAllWindows()
 if __name__ == '__main__':
     main()
 

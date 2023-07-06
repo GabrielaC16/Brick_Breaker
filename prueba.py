@@ -46,14 +46,16 @@ while True:
 
             # Mover la plataforma de acuerdo al movimiento de la mano
             platform_x = x - platform_width // 2
+
             # Limitar los límites de movimiento de la plataforma
             if platform_x < 0:
                 platform_x = 0
             elif platform_x > WINDOW_WIDTH - platform_width:
                 platform_x = WINDOW_WIDTH - platform_width
+
             # Dibujar los puntos clave y la conexión entre ellos en la imagen
             mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
-    print(platform_x)
+
     # Crear un fondo negro para la ventana del juego
     game_frame = np.zeros((WINDOW_HEIGHT, WINDOW_WIDTH, 3), dtype=np.uint8)
 
